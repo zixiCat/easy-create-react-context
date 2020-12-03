@@ -91,7 +91,7 @@ const Child = () => {
 #### getConTexts
 
 ```typescript jsx
-export const contexts = getConTexts() 
+const contexts = getConTexts() 
 ```
 Used to create context, see also following which is related content of `contexts`.
 
@@ -102,7 +102,7 @@ Used to create context, see also following which is related content of `contexts
 ```typescript jsx
 <Provider contexts={contexts} value={value} >...</Provider> 
 ```
-Provider data for children, 
+Provider data for children.
 - contexts: object (required)
 - value: object (required)
 
@@ -134,7 +134,7 @@ Invoke function of value in `Provider` and render related components.
 ```js
 contexts.updateAsync(update=>{ update() })
  ```
-Used to run asynchronous code
+Used to run asynchronous code.
 - update: function (required)
 
 <hr />

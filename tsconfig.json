@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "declarationDir": "dist"
   },
-  "include": ["lib"]
+  "include": ["src"]
 }
