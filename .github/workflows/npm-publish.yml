@@ -15,9 +15,9 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       # Publish to npm
       - run:
-          npm i;
           git clone https://zixiCat:${{ secrets.REPO_EASY_CREATE_REACT_CONTEXT_TOKEN }}@github.com/zixiCat/scripts.git ./zixicat;
           node ./zixicat/rollup-publish;
         env:
