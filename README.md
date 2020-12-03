@@ -2,11 +2,11 @@
 [![NPM Status](https://img.shields.io/npm/v/easy-create-react-context.svg)](https://www.npmjs.com/package/easy-create-react-context)   
 
  
-The tool just encapsulates React.createContext, but it's
+The tool just encapsulated React.createContext, but it's
 
 **more efficient**, 
 
-**more convenient** when compared to `Reducer + Context` such combination and
+**more convenient** when compared to `Reducer + Context` such a combination and
  
 **easier** to manage the state of small modules.
 You can think of it as mini version of **MobX**, but with the same rendering efficiency.
@@ -31,15 +31,15 @@ You can also think of it as my personal black-tech small tool. Hope you enjoy it
 
 ## Quick Start
 
-- Create context by invoking `getSimpleConTextObj`, setting contexts and set default by using `Provider`. 
-- Call updateAsync of context that we declared to run some asynchronous functions.
+- Create context by invoking `getConTexts`, Use `Provider` to set `contexts` and `value`. 
+- Call `updateAsync` of `contexts` that we declared to run some asynchronous functions.
 
 ```typescript jsx
-import {getConTexts, Provider} from "easy-create-react-context";
+import { getConTexts, Provider } from 'easy-create-react-context';
 
 type TExample = InstanceType<typeof Example>;
 
-export const contexts = getConTexts<TExample>()
+const contexts = getConTexts<TExample>();
 
 class Example {
   a = 1;
@@ -47,12 +47,12 @@ class Example {
     this.a += num;
   }
   c(num: number) {
-    contexts.updateAsync(update => {
+    contexts.updateAsync((update) => {
       setTimeout(() => {
         this.a += num;
-        update()
-      }, 500)
-    })
+        update();
+      }, 500);
+    });
   }
 }
 
@@ -62,26 +62,27 @@ const Parent = () => {
       <Child />
     </Provider>
   );
-}
+};
 ```
 
-- Invoke useContext and call the getContext of context we declared as param.
-- Call dispatch of context to update data.
+- Invoke `useContext` and use `contexts.getContext` as param.(if you prefer class component, use `contexts.getContext('key').Consumer` instead)
+- Call `context.dispatch` to update data.
 
 ```typescript jsx
 const Child = () => {
-    const a = useContext(contexts.getContext('a'));
-    
-    return <>
+  const a = useContext(contexts.getContext('a'));
+  return (
+    <>
       <div>{a}</div>
-      <button onClick={() => contexts.dispatch({type: 'b', params: [1]})}>
+      <button onClick={() => contexts.dispatch({ type: 'b', params: [1] })}>
         update
       </button>
-      <button onClick={() => contexts.dispatch({type: 'b', params: [-1]})}>
+      <button onClick={() => contexts.dispatch({ type: 'c', params: [1] })}>
         async update
       </button>
     </>
-  };
+  );
+};
 ```
 
 ## API 
@@ -112,7 +113,7 @@ Provider data for children,
 ```js
 const value = React.useContext(context.getContext(key))
 ```
-Obtain current value of the value in `Provider`.
+Obtain current value of the `value` in `Provider`.
 - key: string (required)
 
 <hr />
@@ -122,7 +123,7 @@ Obtain current value of the value in `Provider`.
 ```js
 context.dispatch({type: key, params: argsArray})
  ```
-invoke function of value in `Provider` and render related components.
+Invoke function of value in `Provider` and render related components.
 - key: string (required)
 - argsArray: Array<arg> (optional)
 
