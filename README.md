@@ -13,7 +13,7 @@ You can think of it as mini version of **MobX**, but with the same rendering eff
 
 You can also think of it as my personal black-tech small tool. Hope you enjoy it. 
 
-### [DEMO](https://github.com/zixiCat/easy-create-react-context)
+### [DEMO](https://codesandbox.io/s/easy-create-react-context-h46xx)
 
 ## Installation
 
