@@ -1,45 +1,58 @@
 import React, { Context, createContext, useRef, useState } from 'react';
 
+interface IConTexts<T> {
+  // Invoke function of value in Provider and render related components
+  dispatch: (action: TAction<T>) => void;
+  // Obtain current value of the value in Provider
+  getContext: UnionToIntersection<TConTexts<T>[keyof TConTexts<T>]>;
+  // Used to run asynchronous code
+  updateAsync: (update: (setData: () => void) => void) => void;
+}
+
+interface IProps<T> {
+  // React node
+  children: React.ReactNode;
+  // Object instance
+  value: T;
+  // The context created by getConTexts
+  contexts: IConTexts<T>;
+}
+
 type TFnPropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
 
-// The type that each value of object is only function type
-type IFnProperties<T> = Pick<T, TFnPropertyNames<T>>;
+type TNotFnPropertyNames<T> = Exclude<keyof T, TFnPropertyNames<T>>;
 
-// The type that each value of object is only non-function type
-type IObjProperties<T> = Omit<T, TFnPropertyNames<T>>;
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I
+) => void
+  ? I
+  : never;
 
-// the interface that is type of action
 type TAction<T> = {
-  [P in keyof IFnProperties<T>]: {
+  [P in TFnPropertyNames<T>]: {
     type: P;
     params?: {
-      [P in keyof IFnProperties<T>]: Parameters<IFnProperties<T>[P]>;
+      [P in TFnPropertyNames<T>]: Parameters<T[P]>;
     }[P];
   };
-}[keyof IFnProperties<T>];
+}[TFnPropertyNames<T>];
 
 type TConTexts<T> = {
-  dispatch: (action: TAction<T>) => void;
-  getContext: (
-    type: keyof IObjProperties<T>
-  ) => Context<T[keyof IObjProperties<T>]>;
-  updateAsync: (update: (setData: () => void) => void) => void;
+  [P in TNotFnPropertyNames<T>]: (type: P) => Context<T[P]>;
 };
 
-export const getConTexts = <T extends unknown>(): TConTexts<T> => {
-  return {} as TConTexts<T>;
+// Used to create context, see also following which is related content of contexts
+export const getConTexts = <T extends unknown>(): IConTexts<T> => {
+  return {} as IConTexts<T>;
 };
 
-export const Provider = <T extends unknown>(props: {
-  children: React.ReactNode;
-  value: T;
-  contexts: TConTexts<T>;
-}) => {
+// Provider data for children
+export const Provider = <T extends unknown>(props: IProps<T>) => {
   const [, setData] = useState(false);
-  const context = useRef<any>({});
   const value = useRef<any>(props.value);
+  const context = useRef<any>({});
   const trigger = useRef(true);
   if (trigger.current) {
     for (const i in value.current) {
@@ -47,9 +60,9 @@ export const Provider = <T extends unknown>(props: {
         context.current[i] = createContext<unknown>(value.current[i]);
       }
     }
-    props.contexts.getContext = (p) => {
+    props.contexts.getContext = ((p: keyof T) => {
       return context.current[p];
-    };
+    }) as any;
     props.contexts.updateAsync = (update: (setData: () => void) => void) => {
       update(() => setData((p) => !p));
       return value.current;
