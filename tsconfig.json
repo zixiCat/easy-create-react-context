@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "module": "esnext",
     "target": "es5",
     "skipLibCheck": true,
@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "declarationDir": "dist"
   },
-  "include": ["src"]
+  "include": ["lib"]
 }
