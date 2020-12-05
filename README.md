@@ -122,10 +122,13 @@ Obtain current value of the `value` in `Provider`.
 
 ```js
 context.dispatch({type: key, params: argsArray})
+// or for short
+context.dispatch(key, arg1, arg2, ...argN)
  ```
 Invoke function of value in `Provider` and render related components.
 - key: string (required)
 - argsArray: Array<arg> (optional)
+- argN: the NTH param
 
 <hr />
 

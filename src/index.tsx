@@ -2,7 +2,8 @@ import React, { Context, createContext, useRef, useState } from 'react';
 
 interface IConTexts<T> {
   // Invoke function of value in Provider and render related components
-  dispatch: (action: TAction<T>) => void;
+  dispatch: ((action: TAction<T>) => void) &
+    UnionToIntersection<TDispatchForShort<T>[keyof TDispatchForShort<T>]>;
   // Obtain current value of the value in Provider
   getContext: UnionToIntersection<TConTexts<T>[keyof TConTexts<T>]>;
   // Used to run asynchronous code
@@ -43,6 +44,10 @@ type TConTexts<T> = {
   [P in TNotFnPropertyNames<T>]: (type: P) => Context<T[P]>;
 };
 
+type TDispatchForShort<T> = {
+  [P in TFnPropertyNames<T>]: (type: P, ...rest: Parameters<T[P]>) => void;
+};
+
 // Used to create context, see also following which is related content of contexts
 export const getConTexts = <T extends unknown>(): IConTexts<T> => {
   return {} as IConTexts<T>;
@@ -67,10 +72,15 @@ export const Provider = <T extends unknown>(props: IProps<T>) => {
       update(() => setData((p) => !p));
       return value.current;
     };
-    props.contexts.dispatch = (action) => {
-      const res = value.current[action.type](...(action.params || []));
-      if (value.current !== res) setData((p) => !p);
-    };
+    props.contexts.dispatch = ((action: any, ...rest: any) => {
+      if (typeof action === 'object') {
+        const res = value.current[action.type](...(action.params || []));
+        if (value.current !== res) setData((p) => !p);
+      } else {
+        const res = value.current[action](...(rest || []));
+        if (value.current !== res) setData((p) => !p);
+      }
+    }) as any;
     trigger.current = false;
   }
 
