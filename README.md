@@ -77,7 +77,7 @@ const Child = () => {
       <button onClick={() => contexts.dispatch({ type: 'b', params: [1] })}>
         update
       </button>
-      <button onClick={() => contexts.dispatch({ type: 'c', params: [1] })}>
+      <button onClick={() => contexts.dispatch("c", 1)}>
         async update
       </button>
     </>
