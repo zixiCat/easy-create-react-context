@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Features
 
-* support dispatch's shorthand & add related type ([f6b5ce3](https://github.com/zixiCat/easy-create-react-context/commit/f6b5ce328707d046116f73cfacf53b7d557b8e40))
+* add dispatch's shorthand and related type ([8eeed62](https://github.com/zixiCat/easy-create-react-context/commit/8eeed62e89d6227b24cc793a2f29557397cc948e))
 
 ### [0.1.1](https://github.com/zixiCat/easy-create-react-context/compare/v0.1.0...v0.1.1) (2020-12-03)
 
