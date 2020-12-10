@@ -6,9 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Features
 
-* add dispatch's shorthand and related type ([8eeed62](https://github.com/zixiCat/easy-create-react-context/commit/8eeed62e89d6227b24cc793a2f29557397cc948e))
-* add return statementof dispatch ([d72f053](https://github.com/zixiCat/easy-create-react-context/commit/d72f0539391e66cde31b3d4c99eda18796448ccb))
-
+* add return statement of dispatch ([d72f053](https://github.com/zixiCat/easy-create-react-context/commit/d72f0539391e66cde31b3d4c99eda18796448ccb))
 
 ### Bug Fixes
 
