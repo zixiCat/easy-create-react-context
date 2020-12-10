@@ -124,8 +124,10 @@ Obtain current value of the `value` in `Provider`.
 context.dispatch({type: key, params: argsArray})
 // or for short
 context.dispatch(key, arg1, arg2, ...argN)
+// or used to return something that is return statement of the property of instance
+return context.dispatch(key) 
  ```
-Invoke function of value in `Provider` and render related components.
+Invoke function of value in `Provider` and render related components, you can also use it to return what is return statement of the property of instance.  
 - key: string (required)
 - argsArray: Array<arg> (optional)
 - argN: the NTH param
