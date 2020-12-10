@@ -56,7 +56,7 @@ export const getConTexts = <T extends unknown>(): IConTexts<T> => {
 
 // Provider data for children
 export const Provider = <T extends unknown>(props: IProps<T>) => {
-  const [, setData] = useState(false);
+  const [, setData] = useState(0);
   const value = useRef<any>(props.value);
   const context = useRef<any>({});
   const trigger = useRef(true);
@@ -70,17 +70,17 @@ export const Provider = <T extends unknown>(props: IProps<T>) => {
       return context.current[p];
     }) as any;
     props.contexts.updateAsync = (update: (setData: () => void) => void) => {
-      update(() => setData((p) => !p));
+      update(() => setData((p) => p + 1));
       return value.current;
     };
     props.contexts.dispatch = ((action: any, ...rest: any) => {
       if (typeof action === 'object') {
         const res = value.current[action.type](...(action.params || []));
-        if (value.current !== res) setData((p) => !p);
+        if (value.current !== res) setData((p) => p + 1);
         return res;
       } else {
         const res = value.current[action](...(rest || []));
-        if (value.current !== res) setData((p) => !p);
+        if (value.current !== res) setData((p) => p + 1);
         return res;
       }
     }) as any;
