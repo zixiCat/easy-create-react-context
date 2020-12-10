@@ -2,7 +2,7 @@ import React, { Context, createContext, useRef, useState } from 'react';
 
 interface IConTexts<T> {
   // Invoke function of value in Provider and render related components
-  dispatch: ((action: TAction<T>) => void) &
+  dispatch: UnionToIntersection<TDispatch<T>[keyof TDispatch<T>]> &
     UnionToIntersection<TDispatchForShort<T>[keyof TDispatchForShort<T>]>;
   // Obtain current value of the value in Provider
   getContext: UnionToIntersection<TConTexts<T>[keyof TConTexts<T>]>;
@@ -31,21 +31,22 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   ? I
   : never;
 
-type TAction<T> = {
-  [P in TFnPropertyNames<T>]: {
+type TDispatch<T> = {
+  [P in TFnPropertyNames<T>]: (action: {
     type: P;
-    params?: {
-      [P in TFnPropertyNames<T>]: Parameters<T[P]>;
-    }[P];
-  };
-}[TFnPropertyNames<T>];
-
-type TConTexts<T> = {
-  [P in TNotFnPropertyNames<T>]: (type: P) => Context<T[P]>;
+    params?: Parameters<T[P]>;
+  }) => T[P];
 };
 
 type TDispatchForShort<T> = {
-  [P in TFnPropertyNames<T>]: (type: P, ...rest: Parameters<T[P]>) => void;
+  [P in TFnPropertyNames<T>]: (
+    type: P,
+    ...rest: Parameters<T[P]>
+  ) => ReturnType<T[P]>;
+};
+
+type TConTexts<T> = {
+  [P in TNotFnPropertyNames<T>]: (type: P) => Context<T[P]>;
 };
 
 // Used to create context, see also following which is related content of contexts
@@ -76,9 +77,11 @@ export const Provider = <T extends unknown>(props: IProps<T>) => {
       if (typeof action === 'object') {
         const res = value.current[action.type](...(action.params || []));
         if (value.current !== res) setData((p) => !p);
+        return res;
       } else {
         const res = value.current[action](...(rest || []));
         if (value.current !== res) setData((p) => !p);
+        return res;
       }
     }) as any;
     trigger.current = false;
