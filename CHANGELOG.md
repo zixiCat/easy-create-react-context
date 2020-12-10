@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+### [0.1.3](https://github.com/zixiCat/easy-create-react-context/compare/v0.1.1...v0.1.3) (2020-12-10)
+
+
+### Features
+
+* add dispatch's shorthand and related type ([8eeed62](https://github.com/zixiCat/easy-create-react-context/commit/8eeed62e89d6227b24cc793a2f29557397cc948e))
+* add return statementof dispatch ([d72f053](https://github.com/zixiCat/easy-create-react-context/commit/d72f0539391e66cde31b3d4c99eda18796448ccb))
+
+
+### Bug Fixes
+
+* update render ([6254f73](https://github.com/zixiCat/easy-create-react-context/commit/6254f7369aeb53fe034d6fa07a8870248d872a77))
+
 ### [0.1.2](https://github.com/zixiCat/easy-create-react-context/compare/v0.1.1...v0.1.2) (2020-12-05)
 
 
