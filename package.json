@@ -1,6 +1,6 @@
 {
   "name": "easy-create-react-context",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/zixiCat/easy-create-react-context",
   "description": "The tool just encapsulated React.createContext, you can also think of it as my personal black-tech small tool. Hope you enjoy it.",
   "main": "src/index.tsx",
