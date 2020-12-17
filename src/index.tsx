@@ -1,6 +1,6 @@
 import React, { Context, createContext, useRef, useState } from 'react';
 
-interface IConTexts<T> {
+export interface IConTexts<T> {
   // Invoke function of value in Provider and render related components
   dispatch: UnionToIntersection<TDispatch<T>[keyof TDispatch<T>]> &
     UnionToIntersection<TDispatchForShort<T>[keyof TDispatchForShort<T>]>;
@@ -10,7 +10,7 @@ interface IConTexts<T> {
   updateAsync: (update: (setData: () => void) => void) => void;
 }
 
-interface IProps<T> {
+export interface IProps<T> {
   // React node
   children: React.ReactNode;
   // Object instance
