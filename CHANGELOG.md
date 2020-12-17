@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+### [1.0.1](https://github.com/zixiCat/easy-create-react-context/compare/v1.0.0...v1.0.1) (2020-12-17)
+
+
+### Bug Fixes
+
+* fix the error of declaration ([b18794f](https://github.com/zixiCat/easy-create-react-context/commit/b18794f915de1bf82806ad41349686a2711381a6))
+
 ## [1.0.0](https://github.com/zixiCat/easy-create-react-context/compare/v0.1.3...v1.0.0) (2020-12-14)
 
 ### [0.1.3](https://github.com/zixiCat/easy-create-react-context/compare/v0.1.1...v0.1.3) (2020-12-10)
